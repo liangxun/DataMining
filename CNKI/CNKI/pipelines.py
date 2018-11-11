@@ -16,7 +16,9 @@ class CnkiPipeline(object):
             raise DropItem("this's not a normal paper")
     '''
     def process_item(self, item, spider):
-        with open('./temp.csv', 'a') as f:
-            f.write(item['title'] + ','+item['href'] + ','+item['abstract'] + '\n')
+        with open('./data/temp.txt', 'a') as f:
+            f.write(item['title'] + '\t'+item['href'] + '\t'+item['abstract'] + '\n')
+        with open('./data/urls.txt', 'a') as f:
+            f.write(item['href']+'\n')
         return item
 
