@@ -21,6 +21,7 @@ class CNKISpider(scrapy.Spider):
         ]
         subjectCode = 'J159'   # 金融学
         # subjectCode = 'F087'   # 喜剧电影与电脑技术
+        # subjectCode = 'J'
         formdata = {
             'searchType': 'MulityTermsSearch',
             'ParamIsNullOrEmpty': 'false',
@@ -31,7 +32,7 @@ class CNKISpider(scrapy.Spider):
             'ZtCode': subjectCode,
         }
         for url in urls:
-            for page in range(10):
+            for page in range(5):
                 formdata['Page'] = str(page)
                 yield scrapy.FormRequest(url=url, formdata=formdata, callback=self.parse)
 
@@ -40,10 +41,10 @@ class CNKISpider(scrapy.Spider):
             href = a.xpath('./@href').extract()[0]
             if '/Article/' in href:
                 title = a.xpath('./@title').extract()[0]
-                yield scrapy.Request(url=href, callback=self.parse_paper, meta={'title': title, 'url': href})
+                yield scrapy.Request(url=href, callback=self.parse_paper, meta={'title': title, 'url': href}, dont_filter=True)
             elif 'xuewen' in href:
                 title = a.xpath('./@title').extract()[0]
-                yield scrapy.Request(url=href, callback=self.parse_news, meta={'title': title, 'url': href})
+                yield scrapy.Request(url=href, callback=self.parse_news, meta={'title': title, 'url': href}, dont_filter=True)
 
     def parse_paper(self, response):
         """提取期刊、论文类型文章摘要"""
