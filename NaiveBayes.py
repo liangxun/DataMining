@@ -1,40 +1,112 @@
-data = [
-[(0, 2.0), (1, 6.0), (2, 1.0), (3, 4.0), (4, 1.0), (5, 3.0), (6, 2.0), (7, 2.0), (8, 1.0), (9, 4.0), (10, 5.0), (11, 2.0), (12, 1.0), (13, 1.0), (14, 1.0), (15, 1.0), (16, 10.0), (17, 5.0), (18, 6.0), (19, 2.0), (20, 1.0), (21, 1.0), (22, 1.0), (23, 1.0), (24, 2.0), (25, 2.0)],
-[(2, 1.0), (3, 1.0), (8, 1.0), (10, 15.0), (13, 1.0), (16, 1.0), (17, 4.0), (21, 6.0), (23, 1.0), (24, 2.0), (26, 1.0), (27, 1.0), (28, 2.0), (29, 1.0), (30, 2.0), (31, 1.0), (32, 1.0), (33, 3.0), (34, 1.0), (35, 2.0), (36, 1.0), (37, 1.0), (38, 1.0), (39, 1.0), (40, 5.0), (41, 2.0), (42, 2.0), (43, 1.0), (44, 1.0), (45, 1.0), (46, 5.0)],
-[(5, 1.0), (12, 3.0), (21, 2.0), (23, 1.0), (35, 2.0), (39, 2.0), (41, 1.0), (47, 1.0), (48, 1.0), (49, 1.0), (50, 3.0), (51, 2.0), (52, 1.0), (53, 1.0), (54, 1.0), (55, 3.0), (56, 1.0), (57, 3.0), (58, 1.0), (59, 1.0), (60, 3.0), (61, 2.0), (62, 5.0), (63, 2.0), (64, 1.0), (65, 1.0), (66, 1.0), (67, 3.0), (68, 2.0), (69, 1.0), (70, 9.0), (71, 1.0), (72, 2.0), (73, 3.0), (74, 1.0), (75, 7.0), (76, 1.0), (77, 1.0)],
-[(0, 2.0), (1, 6.0), (2, 1.0), (3, 4.0), (4, 1.0), (5, 3.0), (6, 2.0), (7, 2.0), (8, 1.0), (9, 4.0), (10, 5.0), (11, 2.0), (12, 1.0), (13, 1.0), (14, 1.0), (15, 1.0), (16, 10.0), (17, 5.0), (18, 6.0), (19, 2.0), (20, 1.0), (21, 1.0), (22, 1.0), (23, 1.0), (24, 2.0), (25, 2.0)],
-[(2, 1.0), (3, 1.0), (8, 1.0), (10, 15.0), (13, 1.0), (16, 1.0), (17, 4.0), (21, 6.0), (23, 1.0), (24, 2.0), (26, 1.0), (27, 1.0), (28, 2.0), (29, 1.0), (30, 2.0), (31, 1.0), (32, 1.0), (33, 3.0), (34, 1.0), (35, 2.0), (36, 1.0), (37, 1.0), (38, 1.0), (39, 1.0), (40, 5.0), (41, 2.0), (42, 2.0), (43, 1.0), (44, 1.0), (45, 1.0), (46, 5.0)],
-[(5, 1.0), (12, 3.0), (21, 2.0), (23, 1.0), (35, 2.0), (39, 2.0), (41, 1.0), (47, 1.0), (48, 1.0), (49, 1.0), (50, 3.0), (51, 2.0), (52, 1.0), (53, 1.0), (54, 1.0), (55, 3.0), (56, 1.0), (57, 3.0), (58, 1.0), (59, 1.0), (60, 3.0), (61, 2.0), (62, 5.0), (63, 2.0), (64, 1.0), (65, 1.0), (66, 1.0), (67, 3.0), (68, 2.0), (69, 1.0), (70, 9.0), (71, 1.0), (72, 2.0), (73, 3.0), (74, 1.0), (75, 7.0), (76, 1.0), (77, 1.0)],
-[(4, 1.0), (6, 3.0), (10, 3.0), (12, 1.0), (13, 2.0), (16, 3.0), (29, 1.0), (50, 2.0), (57, 6.0), (78, 1.0), (79, 1.0), (80, 1.0), (81, 1.0), (82, 2.0), (83, 1.0), (84, 1.0), (85, 1.0), (86, 5.0), (87, 1.0), (88, 1.0)],
-[(14, 1.0), (23, 1.0), (56, 1.0), (82, 9.0), (89, 7.0), (90, 3.0), (91, 1.0), (92, 1.0), (93, 1.0), (94, 1.0), (95, 2.0), (96, 1.0), (97, 4.0), (98, 4.0), (99, 7.0), (100, 1.0), (101, 1.0), (102, 2.0)],
-[(90, 1.0), (95, 1.0), (103, 2.0), (104, 1.0), (105, 1.0), (106, 1.0), (107, 1.0), (108, 1.0), (109, 1.0), (110, 1.0), (111, 2.0)],
-[(112, 1.0), (113, 1.0), (114, 1.0), (115, 2.0), (116, 1.0), (117, 1.0), (118, 1.0), (119, 1.0), (120, 1.0), (121, 1.0), (122, 1.0), (123, 2.0), (124, 2.0), (125, 1.0), (126, 1.0), (127, 2.0), (128, 1.0), (129, 1.0), (130, 2.0), (131, 1.0), (132, 1.0), (133, 2.0), (134, 1.0), (135, 1.0)],
-]
-
-label = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
+# 参考 https://github.com/Zephery/weiboanalysis/blob/master/Bayes.py
+# 把一类文档看成一种分布，通过衡量两个分布之间的相似度
+# 这种方法其实并不是典型的Bayes
 import numpy as np
+from gensim import corpora
+from itertools import islice
+import pickle as pkl
+from sklearn import metrics
 
 len_dictionary = 5000
 
+'''
+corpus = corpora.MmCorpus('./data/corpuse.mm')
+# 拆分成10个文件,每个类有5W个文档
+int_v = 50000
+params = []
+for label in range(10):
+    data = []
+    start = label * int_v
+    end = (label+1) * int_v
+    for doc in islice(corpus, start, end):
+        data.append(doc)
+    with open('./data/corpus_{}.mm'.format(label), 'wb') as f:
+        pkl.dump(data, f)
+'''
 
 
-def trainingNaiveBayes(corpus, label):  # 计算先验概率
+'''
+corpus = corpora.MmCorpus('./data/corpuse.mm')
+
+# 计算条件概率和先验概率
+
+def trainingNaiveBayes(corpus, label, start):  # 计算先验概率
     numWords = len_dictionary
 
     words = np.ones(numWords)
-
     WordsNum = 2.0  # 如果一个概率为0，乘积为0，故初始化1，分母2
 
+    cnt = start
     for doc in corpus:
+        print('doc index:', cnt)
+        cnt += 1
+        # print(doc)
+        # print('len(doc)', len(doc))
         for i, j in doc:
+            # print(i, j)
             words[i] += j
-            WordsNum += j   #为什么要统计这个
+            WordsNum += j
 
-    P_Words = np.log(words / WordsNum)
+    words = words[:]
+    P_Words = words / WordsNum
+    assert len(P_Words == len_dictionary)
+    print('len(word)', len(words))
+    print('len(p_words', len(P_Words))
 
     return P_Words, label
 
 
-p, label = trainingNaiveBayes(data, 1)
-print(p)
+int_v = 50000
+
+params = []
+for label in range(10):
+    start = label * int_v
+    end = (label+1) * int_v
+    # print(start, end)
+    p, catagory = trainingNaiveBayes(islice(corpus, start, end), label, start)
+    print(catagory)
+    print(p)
+    print(p.shape)
+    params.append((catagory, p))
+
+with open('./data/params.pkl', 'wb') as f:
+    pkl.dump(params, f
+'''
+
+# 预测
+with open('./data/params.pkl', 'rb') as f:
+    params = pkl.load(f)
+
+
+def _pred(doc, params):
+    test = np.zeros(len_dictionary)
+    for i,j in doc:
+        test[i] = j
+    scores = []
+    for y, distribution in params:
+        score = np.sum(test * distribution)
+        scores.append(score)
+    y_pred = scores.index(max(scores))
+    return y_pred
+
+
+def predict(corpus, params):
+    y_prediction = []
+    cnt = 0
+    for doc in corpus:
+        y_pred = _pred(doc, params)
+        y_prediction.append(y_pred)
+        print('doc {}: pred = {}'.format(cnt, y_pred))
+        cnt += 1
+
+    return np.array(y_prediction)
+
+
+corpus = corpora.MmCorpus('./data/corpuse.mm')
+y_true = np.load('./data/tmp.npy')
+y_pred = predict(corpus, params)
+
+print(metrics.accuracy_score(y_true, y_pred))
+np.save('./data/y_pred.npy', y_pred)
+
+
