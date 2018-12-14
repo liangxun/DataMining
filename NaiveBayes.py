@@ -1,6 +1,8 @@
 # 参考 https://github.com/Zephery/weiboanalysis/blob/master/Bayes.py
 # 把一类文档看成一种分布，通过衡量两个分布之间的相似度
 # 这种方法其实并不是典型的Bayes
+
+
 import numpy as np
 from gensim import corpora
 from itertools import islice
@@ -25,12 +27,12 @@ for label in range(10):
 '''
 
 
-'''
+
 corpus = corpora.MmCorpus('./data/corpuse.mm')
 
-# 计算条件概率和先验概率
 
 def trainingNaiveBayes(corpus, label, start):  # 计算先验概率
+    """计算条件概率和先验概率"""
     numWords = len_dictionary
 
     words = np.ones(numWords)
@@ -49,15 +51,11 @@ def trainingNaiveBayes(corpus, label, start):  # 计算先验概率
 
     words = words[:]
     P_Words = words / WordsNum
-    assert len(P_Words == len_dictionary)
-    print('len(word)', len(words))
-    print('len(p_words', len(P_Words))
 
     return P_Words, label
 
 
 int_v = 50000
-
 params = []
 for label in range(10):
     start = label * int_v
@@ -69,18 +67,19 @@ for label in range(10):
     print(p.shape)
     params.append((catagory, p))
 
-with open('./data/params.pkl', 'wb') as f:
-    pkl.dump(params, f
-'''
+with open('./data/params_{}.pkl'.format(len_dictionary), 'wb') as f:
+    pkl.dump(params, f)
 
+'''
 # 预测
 with open('./data/params.pkl', 'rb') as f:
     params = pkl.load(f)
+'''
 
 
 def _pred(doc, params):
     test = np.zeros(len_dictionary)
-    for i,j in doc:
+    for i, j in doc:
         test[i] = j
     scores = []
     for y, distribution in params:
@@ -107,6 +106,7 @@ y_true = np.load('./data/tmp.npy')
 y_pred = predict(corpus, params)
 
 print(metrics.accuracy_score(y_true, y_pred))
-np.save('./data/y_pred.npy', y_pred)
+print(metrics.confusion_matrix(y_true, y_pred))
+np.save('./data/y_pred{}.npy'.format(len_dictionary), y_pred)
 
 
