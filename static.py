@@ -15,7 +15,7 @@ def static_per_word(data, word_index):
     :param word_index:
     :return:
     """
-    frequency = np.ones(len(data))
+    frequency = np.zeros(len(data))
     cnt = 0
     for doc in data:
         for i, j in doc:
@@ -37,11 +37,11 @@ def static_per_catagory(corpus, dictionary, catagory_index, catagorys):
     """
     cp_catagory = []
     print("{} contrains {} docs".format(catagorys[catagory_index], len(corpus)))
-    with open('./data/static/{}.txt'.format(catagory_index), 'wb') as f:
-        for token, id in dictionary.token2id.items():
-            mean, var = static_per_word(corpus, id)
-            print('{}(id={}): mean={}, var={}'.format(token, id, mean, var))
-            cp_catagory.append((id, mean, var))
+    for token, id in dictionary.token2id.items():
+        mean, var = static_per_word(corpus, id)
+        print('{} {}(id={}): mean={}, var={}'.format(catagorys[catagory_index], token, id, mean, var))
+        cp_catagory.append((id, mean, var))
+        with open('./data/static/{}.txt'.format(catagory_index), 'a') as f:
             f.write('{}(id={}): mean={}, var={}\n'.format(token, id, mean, var))
     with open('./data/static/{}.pkl'.format(catagory_index), 'wb') as f:
         pkl.dump(cp_catagory, f)
@@ -68,4 +68,9 @@ if __name__ == '__main__':
     y_train = np.load('./data/y_train.npy')
     print('y_train', y_train.shape)
     from loadFile import catagorys
+    '''
+    corpus = tf_idf[:40000]
+    catagory_index = 0
+    static_per_catagory(corpus, dictionary, catagory_index, catagorys)
+    '''
     static(tf_idf, dictionary, catagorys)
