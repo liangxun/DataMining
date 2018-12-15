@@ -1,26 +1,28 @@
+import os
 import pickle
 from gensim import corpora, models
 from loadFile import load_file
 
-len_dictionary = 5000
-x_train, y_train, x_test, y_test = load_file(dir='./data/new_cuted_all_data/')
 
+def build_dictionary(corpus, len_dict, dir='./data/'):
+    if os.path.exists('{}dictionary{}.dict'.format(dir, len_dict)):
+        print('load exiting dictionary from {}bow{}.mm'.format(dir, len_dict))
+        dictionary = corpora.Dictionary.load('{}dictionary{}.dict'.format(dir, len_dict))
+    else:
+        dictionary = corpora.Dictionary(corpus)
 
-def build_dictionary(corpus, len_dict, is_save=False):
-    dictionary = corpora.Dictionary(x_train)
+        # 1.去掉出现次数低于no_below的
+        # 2.去掉出现次数高于no_above的。注意这个小数指的是百分数
+        # 3.在1和2的基础上，保留出现频率前keep_n的单词
+        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n=len_dict)
+        print('saving dictionary from {}bow{}.mm'.format(dir, len_dict))
+        dictionary.save('{}dictionary{}.dict'.format(dir, len_dict))
 
-    # 1.去掉出现次数低于no_below的
-    # 2.去掉出现次数高于no_above的。注意这个小数指的是百分数
-    # 3.在1和2的基础上，保留出现频率前keep_n的单词
-    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n=len_dict)
-    if is_save is True:
-        dictionary.save('corpora.dict')
-    # dictionary = corpora.Dictionary.load('corpora.dict')  #加载方法
     return dictionary
 
 
 # ====================== Bag of Words =======================
-def bow(corpus, dictionary, is_save=False):
+def build_bow(corpus, dictionary, dir='./data/', suffix='train'):
     """
     通过下面一句得到语料中每一篇文档对应的稀疏向量（这里是bow向量） 即 词袋模型
     向量的每一个元素代表了一个word在这篇文档中出现的次数
@@ -28,23 +30,41 @@ def bow(corpus, dictionary, is_save=False):
     :param dictionary:
     :return:
     """
-    bow = [dictionary.doc2bow(doc) for doc in corpus]
-    if is_save is True:
-        corpora.MmCorpus.serialize('bow{}.mm'.format(len(dictionary)), bow)
-    # bow = corpora.MmCorpus('bow{}.mm'.format(len(dictionary)))    #加载方法
+    if os.path.exists('{}bow{}_{}.mm'.format(dir, len(dictionary), suffix)):
+        print('load exiting bow from {}bow{}_{}.mm'.format(dir, len(dictionary), suffix))
+        bow = corpora.MmCorpus('{}bow{}_{}.mm'.format(dir, len(dictionary), suffix))
+    else:
+        bow = [dictionary.doc2bow(doc) for doc in corpus]
+        corpora.MmCorpus.serialize('{}bow{}_{}.mm'.format(dir, len(dictionary), suffix), bow)
     return bow
 
 
 # ====================== TF-IDF =======================
-def tf_idf(corpus, dictionary, is_save=False):
-    corpus = bow(corpora, dictionary, is_save)
-    model = models.TfidfModel(corpus)
-    corpus_tfidf = model[corpus]
-    if is_save is True:
-        file = open('file.pkl', 'wb')
-        pickle.dump(corpus_tfidf, file)
+def build_tfidf(corpus, dictionary, dir='./data/', suffix='train'):
+    if os.path.exists('{}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix)):
+        print('load exiting bow from {}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix))
+        with open('{}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix), 'rb') as f:
+            corpus_tfidf = pickle.load(f)
+    else:
+        bow = build_bow(corpus, dictionary, dir)
+        model = models.TfidfModel(bow)
+        corpus_tfidf = model[bow]
+        with open('{}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix), 'wb') as f:
+            pickle.dump(corpus_tfidf, f)
     return corpus_tfidf
 
 
 if __name__ == '__main__':
-    pass
+    len_dictionary = 5000
+    x_train, y_train, x_test, y_test = load_file(dir='./data/new_cuted_all_data/')
+    dictionary = build_dictionary(x_train, len_dictionary)
+    bow = build_bow(x_train, dictionary)
+    print('bow', type(bow), len(bow))
+    del bow, x_test
+    tf_idf = build_tfidf(x_train, dictionary)
+    print('tf_idf', type(tf_idf), len(tf_idf))
+    import numpy as np
+    y_train = np.array(y_train)
+    np.save('./data/y_train.npy', y_train)
+    y_test = np.array(y_test)
+    np.save('./data/y_test.npy', y_test)
