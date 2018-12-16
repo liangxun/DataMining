@@ -1,17 +1,16 @@
 """
-从分好词的语料中加载数据，
+从语料（分好词之后的）中加载数据，
 划分训练集与测试集
 """
-
 import pickle
 import random
 
 
 catagorys = ['agriculture', 'car', 'computersoftware', 'finance', 'labor',
-            'medical', 'movie', 'policy', 'psychology', 'sport']
+             'medical', 'movie', 'policy', 'psychology', 'sport']
 
 random.seed(1)
-len_split = 40000
+len_split = 40000   # 每个类中训练样本的个数
 
 
 def load_file(dir='./data/new_cuted_all_data/'):
