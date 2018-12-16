@@ -19,3 +19,4 @@ new_cuted_all_data/ &emsp; 分词之后的原始语料
 dictionary10000.dict    &emsp;  建立bow使用的词典  
 ch2_scores(10000to5000).pkl    &emsp;  卡方检验的值（10000维降到5000维)  
 NBscores_5000.npy    &emsp;  朴素贝叶斯的先验概率  
+linersvm5000.pkl    &emsp;  优化好的线性SVM模型  

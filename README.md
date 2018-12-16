@@ -13,3 +13,4 @@ SVM
 ## files description
 CNKI/    &emsp;  爬虫部分  
 data/    &emsp;  原始数据，bow，tf_idf, 模型参数等  
+notebook/report.ipynb    &emsp;     实验报告，测试集结果
