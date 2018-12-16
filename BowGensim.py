@@ -1,5 +1,6 @@
 import os
 import pickle
+import numpy as np
 from gensim import corpora, models
 from loadFile import load_file
 
@@ -14,7 +15,7 @@ def build_dictionary(corpus, len_dict, dir='./data/'):
         # 1.去掉出现次数低于no_below的
         # 2.去掉出现次数高于no_above的。注意这个小数指的是百分数
         # 3.在1和2的基础上，保留出现频率前keep_n的单词
-        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n=len_dict)
+        dictionary.filter_extremes(keep_n=len_dict)
         print('saving dictionary from {}bow{}.mm'.format(dir, len_dict))
         dictionary.save('{}dictionary{}.dict'.format(dir, len_dict))
 
@@ -38,7 +39,7 @@ def build_bow(corpus, dictionary, dir='./data/', suffix='train'):
         corpora.MmCorpus.serialize('{}bow{}_{}.mm'.format(dir, len(dictionary), suffix), bow)
     return bow
 
-
+'''
 # ====================== TF-IDF =======================
 def build_tfidf(corpus, dictionary, dir='./data/', suffix='train'):
     if os.path.exists('{}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix)):
@@ -52,18 +53,14 @@ def build_tfidf(corpus, dictionary, dir='./data/', suffix='train'):
         with open('{}tf_idf{}_{}.pkl'.format(dir, len(dictionary), suffix), 'wb') as f:
             pickle.dump(corpus_tfidf, f)
     return corpus_tfidf
-
+'''
 
 if __name__ == '__main__':
-    len_dictionary = 5000
+    len_dictionary = 10000
     x_train, y_train, x_test, y_test = load_file(dir='./data/new_cuted_all_data/')
     dictionary = build_dictionary(x_train, len_dictionary)
     bow = build_bow(x_train, dictionary)
     print('bow', type(bow), len(bow))
-    del bow, x_test
-    tf_idf = build_tfidf(x_train, dictionary)
-    print('tf_idf', type(tf_idf), len(tf_idf))
-    import numpy as np
     y_train = np.array(y_train)
     np.save('./data/y_train.npy', y_train)
     y_test = np.array(y_test)

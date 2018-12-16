@@ -1,3 +1,8 @@
+"""
+从分好词的语料中加载数据，
+划分训练集与测试集
+"""
+
 import pickle
 import random
 
