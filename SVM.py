@@ -19,7 +19,7 @@ def linersvm(x, y, model_dir='./linersvm.pkl'):
 
 
 def svm(x, y, model_dir='./svm.pkl'):
-    clf = SVC()
+    clf = SVC(kernel='rbf', C=1000)
     clf.fit(x, y)
 
     with open(model_dir, 'wb') as f:
@@ -38,6 +38,8 @@ if __name__ == '__main__':
         tfidf = pkl.load(f)
     y = np.load('./data/y_train.npy')
     assert tfidf.shape[0] == y.shape[0]
+    tfidf = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
+    y = np.array([1, 1, 2, 2])
 
     # linersvm(tfidf, y, model_dir='./data/linersvm{}.pkl'.format(len_features))
     svm(tfidf, y, model_dir='./data/svm{}.pkl'.format(len_features))
