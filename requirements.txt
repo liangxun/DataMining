@@ -1,5 +1,5 @@
 gensim==3.6.0
-numpy==1.15.3
+numpy==1.22.0
 Scrapy==1.5.1
 scipy==1.1.0
 requests==2.20.0
